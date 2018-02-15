@@ -1,1 +1,5 @@
 /serverroot/config.ini
+/backup
+/backup/*
+/logs
+/logs/*

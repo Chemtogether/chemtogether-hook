@@ -1,4 +1,7 @@
 <?php
+// Path to script parent directory
+$path = getenv('github_webhook_path');
+
 
 // the shared secret, used to sign the POST data (using HMAC with SHA1)
 // Not documented anywhere, generate random password with high entropy and set as environment variable on server via 'export github_webhook_secret=<password>'
@@ -7,7 +10,7 @@ $secret = getenv('github_webhook_secret');
 
 
 // where to log errors and successful requests
-define('LOGFILE', 'webhook.log');
+define('LOGFILE', $path.'/logs/webhook.log');
 
 
 // receive POST data for signature calculation
