@@ -1,16 +1,16 @@
 <?php
-// Path to script parent directory
+// Path to script parent directory with suffix /
 $path = getenv('github_webhook_path');
 
 
 // the shared secret, used to sign the POST data (using HMAC with SHA1)
-// Not documented anywhere, generate random password with high entropy and set as environment variable on server via 'export github_webhook_secret=<password>'
+// Not documented anywhere, generate random password with high entropy and set as environment variable on server via httpd.conf
 // Remember to also change the webhook secret in Github
 $secret = getenv('github_webhook_secret');
 
 
 // where to log errors and successful requests
-define('LOGFILE', $path.'/logs/webhook.log');
+define('LOGFILE', $path.'logs/webhook.log');
 
 
 // receive POST data for signature calculation
@@ -19,9 +19,9 @@ $signature = hash_hmac('sha1', $post_data, $secret);
 
 // required data in POST body
 $required_data = array(
-	'ref' => 'refs/heads/live',
+	'ref' => 'refs/heads/master',
 	'repository' => array(
-		'name' => 'chemtogether-web',
+		'name' => 'chemtogether-hook',
 	),
 );
 
@@ -43,7 +43,7 @@ function log_msg($msg) {
   }
 }
 
-function match_header($have, $should, $name = 'array') {
+function array_matches($have, $should, $name = 'array') {
   $return = true;
 
   if(is_array($have)) {
