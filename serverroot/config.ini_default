@@ -1,8 +1,8 @@
 [credentials]
-mailaddress =
-mailpassword =
+mailaddress = 'mygmail@gmail.com'
+mailpassword = 'mypassword'
 
 [mail]
-from = ""
-from_name = ""
-to = ""
+from = 'mygmail@gmail.com'
+from_name = 'FirstName LastName'
+to = 'FirstName LastName'

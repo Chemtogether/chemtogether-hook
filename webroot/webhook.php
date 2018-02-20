@@ -1,17 +1,21 @@
 <?php
+
 // Path to script parent directory with suffix /
 $path = getenv('github_webhook_path');
-
-
-// the shared secret, used to sign the POST data (using HMAC with SHA1)
-// Not documented anywhere, generate random password with high entropy and set as environment variable on server via httpd.conf
-// Remember to also change the webhook secret in Github
-$secret = getenv('github_webhook_secret');
-
 
 // where to log errors and successful requests
 define('LOGFILE', $path.'logs/webhook.log');
 
+// the shared secret, used to sign the POST data (using HMAC with SHA1)
+// Not documented anywhere, generate random password with high entropy and set as environment variable on server via httpd.conf
+// Remember to also change the webhook secret in Github
+if (getenv('github_webhook_secret') != '') {
+	$secret = getenv('github_webhook_secret');
+} else {
+	log_msg('Environment variable with secret is empty! Request denied.');
+	http_response_code(403);
+	die("Forbidden\n");
+}
 
 // receive POST data for signature calculation
 $post_data = file_get_contents('php://input');
@@ -78,13 +82,14 @@ header("Content-Type: text/plain");
 
 $data = json_decode($post_data, true);
 
-// First do all checks and then report back in order to avoid timing attacks
+// First do all checks and then report back
 $headers_ok = array_matches($_SERVER, $required_headers, '$_SERVER');
 $data_ok = array_matches($data, $required_data, '$data');
 
 if($headers_ok && $data_ok) {
   log_msg('Request successful.');
-  // execute git script
+  exec('php '.$path.'serverroot/main.php', $output);
+	log_msg('Output of main.php as follows\n'.implode('\n',$output));
 } else {
   log_msg('Request denied.');
   http_response_code(403);
