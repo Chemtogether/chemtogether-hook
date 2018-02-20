@@ -1,17 +1,20 @@
 <?php
+date_default_timezone_set('Europe/Zurich');
 
-// read config
-$config = parse_ini_file('./config.ini', true);
+require('./config_service.php');
+require('./logger_service.php');
 
-$credentials = $config['credentials'];
-$mail = $config['mail'];
+// initiate an instance for logging
+$logger = new Logger();
 
-$mail['subject'] = 'test';
-$mail['body'] = 'Test';
-
-include('mail_service.php');
-
-echo(mail_service($mail, $credentials));
+// log current call of main.php with time stamp
+$logger->log("\n\n=== main.php called at ".date('d.m.Y h:i:s')." ===");
 
 
- ?>
+// read config and set up its logging
+$config = new Config();
+$config->enable_logging($logger);
+
+
+
+?>
