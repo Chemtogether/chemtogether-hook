@@ -19,7 +19,7 @@ class Mail {
     $this->password = 'mypassword';
 
     // Set who the message is to be sent from, fallback to be overwritten by config
-    $this->from = 'myaccount@gmail.com'
+    $this->from = 'myaccount@gmail.com';
     $this->fromname = 'FirstName LastName';
 
     // Set who the message is to be sent to, fallback to be overwritten by config
@@ -34,15 +34,15 @@ class Mail {
 
   public function  set_parameters($config_instance) {
     // Credentials to use for SMTP authentication, fallback to be overwritten by config
-    $this->username = $config->get_value('credentials','mailaddress');
-    $this->password = $config->get_value('credentials','mailpassword');
+    $this->username = $config_instance->get_value('credentials','mailaddress');
+    $this->password = $config_instance->get_value('credentials','mailpassword');
 
     // Set who the message is to be sent from, fallback to be overwritten by config
-    $this->from = $config->get_value('mail','from');
-    $this->fromname = $config->get_value('mail','from_name');
+    $this->from = $config_instance->get_value('mail','from');
+    $this->fromname = $config_instance->get_value('mail','from_name');
 
     // Set who the message is to be sent to, fallback to be overwritten by config
-    $this->recipient = $config->get_value('mail','to');
+    $this->recipient = $config_instance->get_value('mail','to');
 
     // log successfull reading of the config file
     $this->log('Config read.');

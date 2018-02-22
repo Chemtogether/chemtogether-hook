@@ -6,3 +6,11 @@ mailpassword = 'mypassword'
 from = 'mygmail@gmail.com'
 from_name = 'FirstName LastName'
 to = 'FirstName LastName'
+
+[zip]
+backup_src = 'path/to/directory/which/should/be/saved'
+backup_dest = 'path/to/directory/in/which/backup/should/be/placed'
+
+[git]
+repo_path = 'path/to/the/repository'
+repo_cmd = 'git pull'
