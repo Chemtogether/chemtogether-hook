@@ -4,6 +4,8 @@ date_default_timezone_set('Europe/Zurich');
 require('./config_service.php');
 require('./logger_service.php');
 require('./mail_service.php');
+require('./zip_service.php');
+require('./git_service.php');
 
 // initiate an instance for logging
 $log_service = new Logger();
@@ -22,8 +24,8 @@ $mail_service->enable_logging($log_service);
 $mail_service->set_parameters($config_service);
 
 $log_service->collect_summary('Test', 0, 'mail');
-$log_service->collect_summary(array('Test1','Test2','Test3'), 0, 'zip');
-$log_service->collect_summary(array('Test1','Test2','Test3'), 1, 'aha');
+$log_service->collect_summary(implode("\n",array('Test1','Test2','Test3')), 0, 'zip');
+$log_service->collect_summary('Test', 0, 'mail');
 
 $result = $log_service->log_summary();
 
