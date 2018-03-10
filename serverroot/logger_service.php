@@ -26,15 +26,13 @@ class Logger {
 
   public function collect_summary($message, $status, $id) {
     $this->summary_status[$id] = $status;
-    $this->summary_body[$id] = $this->summary_body[$id]."\n".$message;
+    if(isset($this->summary_body[$id])) $this->summary_body[$id] .= "\n".$message;
+    else $this->summary_body[$id] = $message;
   }
 
   public function log_summary() {
-    if ((bool) $this->summary_status) {
-      $subject = '[FAILURE] Deployment via Webhook failed due to '.array_search(1,$this->summary_status);
-    } else {
-      $subject = '[SUCCESS] Deployment via Webhook succeeded';
-    }
+    if (max($this->summary_status) > 0) $subject = '[FAILURE] Deployment via Webhook failed due to '.array_search(1,$this->summary_status);
+    else $subject = '[SUCCESS] Deployment via Webhook succeeded';
 
     $summary = "Deployment script was run at ".date('d.m.Y H:i:s').".\n\n";
     foreach ($this->summary_body as $summary_key => $key_message) {

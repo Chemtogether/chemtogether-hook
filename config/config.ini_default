@@ -10,6 +10,7 @@ to = 'FirstName LastName'
 [zip]
 backup_src = 'path/to/directory/which/should/be/saved'
 backup_dest = 'path/to/directory/in/which/backup/should/be/placed'
+backup_cmd = 'tar -Jcf'
 
 [git]
 repo_path = 'path/to/the/repository'
