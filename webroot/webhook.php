@@ -80,7 +80,7 @@ function array_matches($have, $should, $name = 'array') {
 }
 
 
-log_msg("\n\n=== Received request from {$_SERVER['REMOTE_ADDR']} ===");
+log_msg("\n\n=== Received request from {$_SERVER['REMOTE_ADDR']} at ".date('d.m.Y H:i:s')." ===");
 header("Content-Type: text/plain");
 
 $data = json_decode($post_data, true);
