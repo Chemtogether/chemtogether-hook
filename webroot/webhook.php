@@ -3,6 +3,9 @@
 // Path to script parent directory with suffix /
 $path = getenv('github_webhook_path');
 
+// Path to php executable if not in $PATH with suffix /
+$php_path = getenv('github_webhook_php');
+
 // where to log errors and successful requests
 define('LOGFILE', $path.'logs/webhook.log');
 
@@ -23,9 +26,9 @@ $signature = hash_hmac('sha1', $post_data, $secret);
 
 // required data in POST body
 $required_data = array(
-	'ref' => 'refs/heads/master',
+	'ref' => 'refs/heads/live',
 	'repository' => array(
-		'name' => 'chemtogether-hook',
+		'name' => 'chemtogether-web',
 	),
 );
 
@@ -88,8 +91,9 @@ $data_ok = array_matches($data, $required_data, '$data');
 
 if($headers_ok && $data_ok) {
   log_msg('Request successful.');
-  exec('php '.$path.'serverroot/main.php', $output);
-	log_msg('Output of main.php as follows\n'.implode('\n',$output));
+	$cmd = $php_path.'php '.$path.'serverroot/main.php';
+	log_msg('EXEC: '.$cmd);
+  exec($cmd);
 } else {
   log_msg('Request denied.');
   http_response_code(403);
