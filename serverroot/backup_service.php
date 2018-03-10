@@ -2,7 +2,6 @@
 
 class Backup {
 
-  private $path;
   private $logging = false;
   private $logger;
 

@@ -5,7 +5,7 @@ mailpassword = 'mypassword'
 [mail]
 from = 'mygmail@gmail.com'
 from_name = 'FirstName LastName'
-to = 'FirstName LastName'
+to = 'target@mail.com'
 
 [zip]
 backup_src = 'path/to/directory/which/should/be/saved'
@@ -14,4 +14,4 @@ backup_cmd = 'tar -Jcf'
 
 [git]
 repo_path = 'path/to/the/repository'
-repo_cmd = 'git pull'
+repo_cmd = 'git'

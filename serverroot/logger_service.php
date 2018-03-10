@@ -37,7 +37,7 @@ class Logger {
     $summary = "Deployment script was run at ".date('d.m.Y H:i:s').".\n\n";
     foreach ($this->summary_body as $summary_key => $key_message) {
       if ($this->summary_status[$summary_key]) $text_string = 'FAILURE'; else $text_string = 'SUCCESS';
-      $summary = $summary."\n===   ".$summary_key.": ".$text_string."   ===\n\n".$key_message."\n";
+      $summary = $summary."\n\n\n===   ".$summary_key.": ".$text_string."   ===\n\n".$key_message."\n";
     }
 
     return array($subject, $summary);

@@ -2,7 +2,6 @@
 
 class Mail {
 
-  private $path;
   private $logging = false;
   private $logger;
 
