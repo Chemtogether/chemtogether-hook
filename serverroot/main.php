@@ -1,14 +1,14 @@
 <?php
 date_default_timezone_set('Europe/Zurich');
 
-require('./config_service.php');
-require('./logger_service.php');
-require('./mail_service.php');
-require('./backup_service.php');
-require('./git_service.php');
+require('config_service.php');
+require('logger_service.php');
+require('mail_service.php');
+require('backup_service.php');
+require('git_service.php');
 
 // initiate an instance for logging
-$log_service = new Logger();
+$log_service = new Logger('/path/to/log.log');
 
 // log current call of main.php with time stamp
 $log_service->log("\n\n=== main.php called at ".date('d.m.Y H:i:s')." ===");

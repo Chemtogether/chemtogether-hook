@@ -5,7 +5,7 @@ class Logger {
   private $mailing = false;
   private $mail;
 
-  public $summary_body = '';
+  public $summary_body = array();
   public $summary_subject = '';
   public $summary_status = array();
 
